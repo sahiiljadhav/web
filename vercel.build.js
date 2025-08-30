@@ -1,10 +1,10 @@
 // This file is used by Vercel to build the project
-import { execSync } from 'child_process';
+const { execSync } = require('child_process');
 
 try {
-  // Run the build command
-  console.log('Building the React Router project...');
-  execSync('npx react-router build', { stdio: 'inherit' });
+  // Run the custom build script
+  console.log('Building the React Router project using custom build script...');
+  require('./build.js');
   console.log('Build completed successfully!');
 } catch (error) {
   console.error('Build failed:', error);

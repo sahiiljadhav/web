@@ -1,15 +1,14 @@
-import { readdir, stat } from 'node:fs/promises';
-import { join } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { Hono } from 'hono';
-import type { Handler } from 'hono/types';
-import updatedFetch from '../src/__create/fetch';
+const { readdir, stat } = require('node:fs/promises');
+const { join } = require('node:path');
+const { fileURLToPath } = require('node:url');
+const { Hono } = require('hono');
+const updatedFetch = require('../src/__create/fetch');
 
 const API_BASENAME = '/api';
 const api = new Hono();
 
 // Get current directory
-const __dirname = join(fileURLToPath(new URL('.', import.meta.url)), '../src/app/api');
+const __dirname = join(__dirname, '../src/app/api');
 if (globalThis.fetch) {
   globalThis.fetch = updatedFetch;
 }
@@ -132,20 +131,8 @@ async function registerRoutes() {
 }
 
 // Initial route registration
-await registerRoutes();
+registerRoutes().catch(err => {
+  console.error('Error registering routes:', err);
+});
 
-// Hot reload routes in development
-if (import.meta.env.DEV) {
-  import.meta.glob('../src/app/api/**/route.js', {
-    eager: true,
-  });
-  if (import.meta.hot) {
-    import.meta.hot.accept((newSelf) => {
-      registerRoutes().catch((err) => {
-        console.error('Error reloading routes:', err);
-      });
-    });
-  }
-}
-
-export { api, API_BASENAME };
+module.exports = { api, API_BASENAME };

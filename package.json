@@ -1,7 +1,7 @@
 {
 	"name": "web",
 	"private": true,
-	"type": "module",
+	"type": "commonjs",
 	"scripts": {
 		"dev": "react-router dev",
 		"build": "react-router build",
