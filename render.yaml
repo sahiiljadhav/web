@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: tall-giraffe-studio
+    env: static
+    buildCommand: npm run build:clean
+    staticPublishPath: ./dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

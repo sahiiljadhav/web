@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import path from 'node:path';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
@@ -9,7 +9,7 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, 'src/main.jsx'),
+        main: path.resolve(__dirname, 'index.html'),
       },
     },
   },
@@ -18,7 +18,4 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'),
     },
   },
-  define: {
-    'process.env.NODE_ENV': '"production"',
-  },
-});
+})
